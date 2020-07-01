@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  mynginx:
+    build: ./nginxImage
+    container_name: "nginx"
+    restart: always
+    ports:
+      - "80:81"
+      - "40000:80"
+      - "40080:8000"
+      - "40081:8001"
+      - "40082:8002"
+      - "40083:8003"
+      - "40084:8004"
+      - "40085:8005"
+      - "40086:8006"
+      - "40087:8007"
+      - "40088:8008"
+      - "40089:8009"
+      - "40090:8010"
+    volumes:
+      - C:/project/docker-container/www:/usr/share/nginx/html
+      - C:/project/docker-container/nginx:/etc/nginx
+      - C:/project/docker-container/logs/nginx.logs:/var/log/nginx

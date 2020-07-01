@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  myredis:
+    build: ./redisImage
+    container_name: "redis3.2"
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - C:/project/docker-container/redis:/data

@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  mydb:
+    build: ./mysql5.7
+    container_name: "mysql5.7"
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - C:/project/docker-container/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678

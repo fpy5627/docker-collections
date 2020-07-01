@@ -1,0 +1,16 @@
+# syntax version.
+version: "3.7"
+
+# services list.
+services:
+  # base image
+  alpine-cli:
+    stdin_open: true
+    tty: true
+    build: ./image
+    container_name: "hyperf"
+    volumes:
+      - "C:/project/docker-container/hyperf/apk:/var/cache/apk"
+      - "C:/project/docker-container/hyperf/project:/opt/www"
+    ports:
+      - "9501:9501"
