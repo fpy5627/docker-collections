@@ -1,7 +1,7 @@
 FROM php:7.3-fpm
-MAINTAINER goozp "946818508@qq.com"
 
-ENV TZ=Asia/Shanghai
+ENV TIMEZONE=Asia/Shanghai \
+    COMPOSER_VERSION=1.8.6
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y \
@@ -23,3 +23,7 @@ RUN pecl install redis && docker-php-ext-enable redis \
 
 RUN echo "" >> /usr/local/etc/php/php.ini
 RUN usermod -u 1000 www-data
+
+RUN wget https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar \
+    && chmod u+x composer.phar \
+    && mv composer.phar /usr/local/bin/composer \
