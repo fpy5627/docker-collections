@@ -1,0 +1,57 @@
+version: "2"
+services:
+  mydb:
+    build: ./mysql
+    container_name: "mysql5.7"
+    restart: always
+    ports:
+      - "43306:3306"
+    volumes:
+      - C:/project/docker-container/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+  myredis:
+    build: ./redis
+    container_name: "redis3.2"
+    restart: always
+    ports:
+      - "46379:6379"
+    volumes:
+      - C:/project/docker-container/redis:/data
+  myphp:
+    build: ./php
+    container_name: "php7.3"
+    restart: always
+    ports:
+      - "49000:9000"
+    volumes:
+      - C:/project/docker-container/www:/var/www/html
+      - C:/project/docker-container/php:/usr/local/etc/php
+    links:
+      - "mydb"
+      - "myredis"
+  mynginx:
+    build: ./nginx
+    container_name: "nginx"
+    restart: always
+    ports:
+      - "80:81"
+      - "40000:80"
+      - "40080:8000"
+      - "40081:8001"
+      - "40082:8002"
+      - "40083:8003"
+      - "40084:8004"
+      - "40085:8005"
+      - "40086:8006"
+      - "40087:8007"
+      - "40088:8008"
+      - "40089:8009"
+      - "40090:8010"
+    links:
+      - "myphp"
+      - "mydb"
+    volumes:
+      - C:/project/docker-container/www:/usr/share/nginx/html
+      - C:/project/docker-container/nginx:/etc/nginx/conf.d
+      - C:/project/docker-container/logs/nginx.logs:/var/log/nginx
