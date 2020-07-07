@@ -1,7 +1,16 @@
+
+需要修改docker-compose.yml文件内，对应volumes映射本地目录
 ## 启动
 ```shell
 docker-compose up -d 
 ```
+
+代码内配置文件
+mysql
+host: mydb
+pwd: 12345678
+redis
+host: myredis
 
 ## [参考hyperf/hyperf-docker](https://github.com/hyperf/hyperf-docker)
 

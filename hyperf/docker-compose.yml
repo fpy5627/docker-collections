@@ -4,13 +4,56 @@ version: "3.7"
 # services list.
 services:
   # base image
-  alpine-cli:
+  myphp:
     stdin_open: true
     tty: true
-    build: ./image
+    build: ./php7.4-swoole4.5.2
     container_name: "hyperf"
     volumes:
       - "C:/project/docker-container/hyperf/apk:/var/cache/apk"
       - "C:/project/docker-container/hyperf/project:/opt/www"
     ports:
-      - "9501:9501"
+      - "59501:9501"
+    networks:
+      - mynet
+  mydb:
+    build: ./mysql5.6
+    container_name: "mysql5.6"
+    restart: always
+    ports:
+      - "53306:3306"
+    volumes:
+      - C:/project/docker-container/hyperf/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+    networks:
+      - mynet
+  myredis:
+    build: ./redis
+    container_name: "redis3.2"
+    restart: always
+    ports:
+      - "56379:6379"
+    volumes:
+      - C:/project/docker-container/hyperf/redis:/data
+    networks:
+      - mynet
+  mynginx:
+    build: ./nginx
+    container_name: "nginx"
+    restart: always
+    ports:
+      - "50000:80"
+      - "50080:8000"
+      - "50081:8001"
+    volumes:
+      - C:/project/docker-container/hyperf/project:/usr/share/nginx/html
+      - C:/project/docker-container/hyperf/nginx:/etc/nginx/conf.d
+      - C:/project/docker-container/hyperf/logs/nginx.logs:/var/log/nginx
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    # external=true，表示使用已经存在的mynet
+    external: true

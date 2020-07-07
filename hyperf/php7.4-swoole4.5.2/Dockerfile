@@ -56,10 +56,11 @@ RUN apk add --no-cache protobuf \
 && pecl install protobuf \
 && echo "extension=protobuf.so" > /etc/php7/conf.d/protobuf.ini
 
+# PHP_Code_Sniffer
+RUN composer global require "squizlabs/php_codesniffer=*"
+
 COPY . /opt/www
 
 WORKDIR /opt/www
 
 # RUN composer install --no-dev -o
-
-EXPOSE 9501
